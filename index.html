@@ -9,36 +9,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --text-primary: #222;
+            --text-secondary: #555;
+            --border-color: #222;
+            --hover-bg: #222;
+            --hover-text: #ffffff;
+        }
+
+        body.dark-mode {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #f0f0f0;
+            --text-secondary: #ccc;
+            --border-color: #f0f0f0;
+            --hover-bg: #f0f0f0;
+            --hover-text: #1a1a1a;
+        }
+
         body {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
-            background-color: #fafafa;
-            color: #222;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         header {
-            text-align: center;
-            padding: 80px 20px;
-            background: white;
+            background: var(--bg-secondary);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            text-align: left;
+            flex: 1;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 400;
+            transition: 0.3s;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: var(--text-secondary);
+        }
+
+        .dark-mode-toggle {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--border-color);
+            color: var(--hover-text);
         }
 
         header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 48px;
+            font-size: 36px;
             margin: 0;
             letter-spacing: 2px;
         }
 
         header p {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #555;
+            margin: 5px 0 0 0;
+            font-size: 13px;
+            color: var(--text-secondary);
         }
 
         section {
             max-width: 1000px;
             margin: auto;
             padding: 60px 20px;
+            scroll-margin-top: 100px;
         }
 
         h2 {
@@ -97,8 +171,8 @@
 
         .contact a {
             text-decoration: none;
-            color: #222;
-            border: 1px solid #222;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
             padding: 12px 30px;
             display: inline-block;
             margin-top: 20px;
@@ -109,36 +183,48 @@
             height: 20px;
             vertical-align: middle;
             margin-right: 8px;
+            opacity: 0.8;
         }
 
         .contact a:hover {
-            background: #222;
-            color: white;
+            background: var(--hover-bg);
+            color: var(--hover-text);
         }
 
         footer {
             text-align: center;
             padding: 30px;
             font-size: 14px;
-            color: #777;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Jee Art</h1>
-    <p>Fine Art Portraits</p>
+    <div class="header-content">
+        <div class="header-title">
+            <h1>Jee Art</h1>
+            <p>Fine Art Portraits</p>
+        </div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+            <button class="dark-mode-toggle" id="darkModeBtn">🌙</button>
+        </nav>
+    </div>
 </header>
 
-<section class="about">
+<section class="about" id="about">
     <h2>About the Artist</h2>
     <p>
         I am a portrait artist specializing in acrylic painting, graphite, charcoal, and colored pencil portraits. My work focuses on realism, emotion, and fine detail. Each portrait is carefully crafted to capture both likeness and personality.
     </p>
 </section>
 
-<section>
+<section id="gallery">
     <h2>Gallery </h2>
     <div class="gallery">
         <div><img src="image/child.jpg" alt="Commission charocal portrait 12*16 size"></div>
@@ -148,7 +234,7 @@
     </div>
 </section>
 
-<section class="contact">
+<section class="contact" id="contact">
     <h2>Commission a Portrait</h2>
     <p>Contact me to start your custom artwork.</p>
     <a href="https://www.instagram.com/jeeartstudio/"> <img src="image/ig-logo.png" alt=""> Instagram</a>
@@ -158,6 +244,28 @@
 <footer>
     © 2026 Jee Art — All rights reserved
 </footer>
+
+<script>
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const body = document.body;
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        darkModeBtn.textContent = '☀️';
+    }
+
+    darkModeBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+            darkModeBtn.textContent = '☀️';
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            darkModeBtn.textContent = '🌙';
+            localStorage.setItem('darkMode', 'disabled');
+        }
+    });
+</script>
 
 </body>
 </html>
