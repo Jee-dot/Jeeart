@@ -149,8 +149,8 @@
             filter: brightness(0.6); /* All images dim by default */
         }
 
-        .gallery-item:hover img {
-            filter: brightness(1); /* Bright on hover */
+        .gallery-item img.in-view {
+            filter: brightness(1) !important; /* Bright when in view */
         }
 
         .artwork-title {
@@ -400,6 +400,19 @@
             localStorage.setItem('darkMode', 'disabled');
         }
     });
+
+    // Intersection Observer for gallery images
+    const galleryImages = document.querySelectorAll('.gallery-item img');
+    const observer = new window.IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+            } else {
+                entry.target.classList.remove('in-view');
+            }
+        });
+    }, { threshold: 0.2 });
+    galleryImages.forEach(img => observer.observe(img));
 </script>
 
 </body>
