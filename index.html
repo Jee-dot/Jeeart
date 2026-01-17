@@ -130,44 +130,13 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
-            
-        }
-
-        .gallery div {
-            background: #ddd;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #777;
-            font-size: 14px;
-            height: 320px; 
-            width: 100%;
-            overflow: hidden;
-        }
-        .gallery div {
-            position: relative;
-            transition: transform 0.3s ease, filter 0.3s ease;
-        }
-        .gallery:hover div {
-            filter: brightness(0.5);
-        }
-        .gallery div:hover {
-            transform: scale(1.05);
-            filter: brightness(1);
-        }
-
-        .gallery img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-            background: #f0f0f0;
-            display: block;
         }
 
         .gallery-item {
             text-align: center;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .gallery-item img {
@@ -181,7 +150,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 16px;
             font-weight: 600;
-            margin: 10px 0 5px 0;
+            margin: 8px 0 4px 0;
             color: var(--text-primary);
             opacity: 0;
             max-height: 0;
@@ -192,7 +161,6 @@
         .artwork-details {
             font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.4;
             opacity: 0;
             max-height: 0;
             overflow: hidden;
@@ -369,22 +337,22 @@
         <div class="gallery-item">
             <img src="image/child.jpg" alt="Charcoal Portrait">
             <div class="artwork-title">Child Portrait</div>
-            <div class="artwork-details">Charcoal<br>9 × 12 inches</div>
+            <div class="artwork-details">Charcoal, 9 × 12 inches</div>
         </div>
         <div class="gallery-item">
             <img src="image/painting.jpg" alt="Acrylic Portrait">
             <div class="artwork-title">Portrait Study</div>
-            <div class="artwork-details">Acrylic<br>16 × 20 inches</div>
+            <div class="artwork-details">Acrylic, 16 × 20 inches</div>
         </div>
         <div class="gallery-item">
             <img src="image/woman.jpg" alt="Woman Portrait">
             <div class="artwork-title">Woman Portrait</div>
-            <div class="artwork-details">Charcoal<br>12 × 16 inches</div>
+            <div class="artwork-details">Charcoal, 12 × 16 inches</div>
         </div>
         <div class="gallery-item">
             <img src="image/colored-pencil.jpg" alt="Colored Pencil Portrait">
             <div class="artwork-title">Colored Pencil Study</div>
-            <div class="artwork-details">Colored Pencil<br>12 × 16 inches</div>
+            <div class="artwork-details">Colored Pencil, 12 × 16 inches</div>
         </div>
     </div>
 </section>
