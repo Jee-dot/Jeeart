@@ -167,6 +167,7 @@
 
         .gallery-item {
             text-align: center;
+            cursor: pointer;
         }
 
         .gallery-item img {
@@ -182,12 +183,26 @@
             font-weight: 600;
             margin: 10px 0 5px 0;
             color: var(--text-primary);
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
         }
 
         .artwork-details {
             font-size: 13px;
             color: var(--text-secondary);
             line-height: 1.4;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+
+        .gallery-item.active .artwork-title,
+        .gallery-item.active .artwork-details {
+            opacity: 1;
+            max-height: 100px;
         }
 
         .contact {
@@ -410,6 +425,24 @@
             hamburger.classList.remove('active');
             menu.classList.remove('active');
         });
+    });
+
+    // Gallery item click handler
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Remove active class from all items
+            galleryItems.forEach(i => i.classList.remove('active'));
+            // Add active class to clicked item
+            item.classList.add('active');
+        });
+    });
+
+    // Close details when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.gallery-item')) {
+            galleryItems.forEach(item => item.classList.remove('active'));
+        }
     });
 
     darkModeBtn.addEventListener('click', () => {
