@@ -137,6 +137,8 @@
             cursor: pointer;
             display: flex;
             flex-direction: column;
+            opacity: 1;
+            transition: opacity 0.3s ease, filter 0.3s ease;
         }
 
         .gallery-item img {
@@ -144,6 +146,12 @@
             height: 300px;
             object-fit: cover;
             margin-bottom: 10px;
+            transition: filter 0.3s ease;
+            filter: brightness(0.6); /* All images dim by default */
+        }
+
+        .gallery-item:hover img {
+            filter: brightness(1); /* Bright on hover */
         }
 
         .artwork-title {
@@ -152,25 +160,11 @@
             font-weight: 600;
             margin: 8px 0 4px 0;
             color: var(--text-primary);
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity 0.3s ease, max-height 0.3s ease;
         }
 
         .artwork-details {
             font-size: 13px;
             color: var(--text-secondary);
-            opacity: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: opacity 0.3s ease, max-height 0.3s ease;
-        }
-
-        .gallery-item.active .artwork-title,
-        .gallery-item.active .artwork-details {
-            opacity: 1;
-            max-height: 100px;
         }
 
         .contact {
@@ -336,17 +330,17 @@
     <div class="gallery">
         <div class="gallery-item">
             <img src="image/child.jpg" alt="Charcoal Portrait">
-            <div class="artwork-title">Child Portrait</div>
+            <div class="artwork-title">Charcoal Portrait</div>
             <div class="artwork-details">Charcoal, 9 × 12 inches</div>
         </div>
         <div class="gallery-item">
             <img src="image/painting.jpg" alt="Acrylic Portrait">
-            <div class="artwork-title">Portrait </div>
+            <div class="artwork-title">Acrylic Portrait </div>
             <div class="artwork-details">Acrylic, 16 × 20 inches</div>
         </div>
         <div class="gallery-item">
-            <img src="image/woman.jpg" alt="Woman Portrait">
-            <div class="artwork-title">Woman Portrait</div>
+            <img src="image/woman.jpg" alt="Charcoal Portrait">
+            <div class="artwork-title">Charcoal Portrait</div>
             <div class="artwork-details">Charcoal, 12 × 16 inches</div>
         </div>
         <div class="gallery-item">
@@ -393,24 +387,6 @@
             hamburger.classList.remove('active');
             menu.classList.remove('active');
         });
-    });
-
-    // Gallery item click handler
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Remove active class from all items
-            galleryItems.forEach(i => i.classList.remove('active'));
-            // Add active class to clicked item
-            item.classList.add('active');
-        });
-    });
-
-    // Close details when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.gallery-item')) {
-            galleryItems.forEach(item => item.classList.remove('active'));
-        }
     });
 
     darkModeBtn.addEventListener('click', () => {
