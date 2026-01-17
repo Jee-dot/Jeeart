@@ -198,6 +198,100 @@
             color: var(--text-secondary);
             background: var(--bg-secondary);
         }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: var(--bg-secondary);
+                padding: 20px;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+                z-index: 99;
+            }
+
+            nav.active {
+                display: flex;
+            }
+
+            nav a {
+                padding: 12px 0;
+                border-bottom: 1px solid var(--border-color);
+                font-size: 16px;
+            }
+
+            nav a:last-child {
+                border-bottom: none;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .gallery div {
+                height: 250px;
+            }
+
+            section {
+                padding: 40px 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -208,7 +302,12 @@
             <h1>Jee Art</h1>
             <p>Fine Art Portraits</p>
         </div>
-        <nav>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav id="menu">
             <a href="#about">About</a>
             <a href="#gallery">Gallery</a>
             <a href="#contact">Contact</a>
@@ -248,12 +347,29 @@
 <script>
     const darkModeBtn = document.getElementById('darkModeBtn');
     const body = document.body;
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('menu');
 
     // Check for saved dark mode preference
     if (localStorage.getItem('darkMode') === 'enabled') {
         body.classList.add('dark-mode');
         darkModeBtn.textContent = '☀️';
     }
+
+    // Hamburger menu toggle
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        menu.classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    const navLinks = menu.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            menu.classList.remove('active');
+        });
+    });
 
     darkModeBtn.addEventListener('click', () => {
         body.classList.toggle('dark-mode');
